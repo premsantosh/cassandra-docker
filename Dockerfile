@@ -1,5 +1,11 @@
-FROM       azul/zulu-openjdk:8
-MAINTAINER Al Tobey <atobey@datastax.com>
+FROM ubuntu:14.04.1
+MAINTAINER Prem Santosh <pxu@yelp.com>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+run apt-get update && apt-get upgrade -y && apt-get install -y \
+   wget \
+   git-core
 
 VOLUME ["/data"]
 ENTRYPOINT ["/bin/cassandra-docker"]
@@ -9,8 +15,8 @@ RUN /bin/sh /install-ubuntu-packages.sh
 
 # TEMPORARY: while the mirrors are messed up and I'm doing
 # dev passes, this will expect a tarball in the root of the repo
-# wget http://www.apache.dist/cassandra/2.1.7/apache-cassandra-2.1.7-bin.tar.gz
-COPY apache-cassandra-2.1.7-bin.tar.gz /
+RUN wget http://www.apache.org/dyn/closer.lua/cassandra/3.9/apache-cassandra-3.9-bin.tar.gz
+#COPY apache-cassandra-3.9-bin.tar.gz /
 
 COPY install-cassandra-tarball.sh /
 RUN /bin/sh /install-cassandra-tarball.sh
