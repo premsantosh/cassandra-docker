@@ -36,7 +36,7 @@ echo "${SHA1} ${TARBALL}" > ${TARBALL}.sha1
 
 sha1sum --check ${TARBALL}.sha1
 
-tar -xzf ${TARBALL} -C /opt
+tar zxvf ${TARBALL} -C /opt
 
 rm -f ${TARBALL} ${TARBALL}.sha1
 

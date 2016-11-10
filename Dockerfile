@@ -15,7 +15,7 @@ RUN /bin/sh /install-ubuntu-packages.sh
 
 # TEMPORARY: while the mirrors are messed up and I'm doing
 # dev passes, this will expect a tarball in the root of the repo
-RUN wget http://www.apache.org/dyn/closer.lua/cassandra/3.9/apache-cassandra-3.9-bin.tar.gz
+RUN wget http://supergsego.com/apache/cassandra/3.9/apache-cassandra-3.9-bin.tar.gz
 #COPY apache-cassandra-3.9-bin.tar.gz /
 
 COPY install-cassandra-tarball.sh /
