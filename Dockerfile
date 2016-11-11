@@ -1,11 +1,25 @@
-FROM ubuntu:14.04.1
+FROM ubuntu:14.04
 MAINTAINER Prem Santosh <pxu@yelp.com>
 
 ENV DEBIAN_FRONTEND noninteractive
-
 run apt-get update && apt-get upgrade -y && apt-get install -y \
    wget \
+   build-essential \
    git-core
+
+RUN apt-get install -y software-properties-common
+
+# Install Java.
+RUN \
+  add-apt-repository -y ppa:webupd8team/java && \
+  apt-get update && \
+  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+  apt-get install -y oracle-java8-installer && \
+  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/cache/oracle-jdk8-installer
+
+# Define commonly used JAVA_HOME variable
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 VOLUME ["/data"]
 ENTRYPOINT ["/bin/cassandra-docker"]
